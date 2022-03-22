@@ -77,12 +77,26 @@ var cars = JsonSerializer.Deserialize<List<CarData>>(fileContent);
 
 // Display there average HP per make
 
-cars.GroupBy(car => car.Make)
-    .Select(car => new { Make = car.Key, AverageHP = car.Average(car => car.HP) })
-    .ToList()
-    .ForEach(car => Console.WriteLine($"{car.Make} {car.AverageHP}"));
+//cars.GroupBy(car => car.Make)
+//    .Select(car => new { Make = car.Key, AverageHP = car.Average(car => car.HP) })
+//    .ToList()
+//    .ForEach(car => Console.WriteLine($"{car.Make} {car.AverageHP}"));
 
-    
+
+// How many makes build cars with hp between 0..100, 101..200, 201..300, 301..400, 401..500
+
+cars.GroupBy(car => car.HP switch
+{
+    <= 100 => "0..100",
+    <= 200 => "101..200",
+    <= 300 => "201..300",
+    <= 400 => "301..400",
+    _ => "401..500"
+})
+    .OrderBy(car => car.Key)
+    .Select(car => new { HPCategory = car.Key, NumberOfMake = car.Select(c => c.Make).Distinct().Count() })
+    .ToList()
+    .ForEach(item => Console.WriteLine($"{item.HPCategory} : {item.NumberOfMake}"));
 
 
 class CarData
