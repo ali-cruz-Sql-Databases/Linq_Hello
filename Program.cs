@@ -45,24 +45,25 @@ var cars = JsonSerializer.Deserialize<List<CarData>>(fileContent);
 
 
 // Display a list of the 10 most powerfull cars (in terms of hp) 
-
-//cars.OrderByDescending(c => c.HP)
-//    .Take(10)
-//    .Select(c => $"{c.Make} {c.HP}")
-//    .ToList()
-//    .ForEach(c => Console.WriteLine(c));
+Console.WriteLine("Display a list of the 10 most powerfull cars (in terms of hp) ");
+cars.OrderByDescending(c => c.HP)
+    .Take(10)
+    .Select(c => $"{c.Make} {c.HP}")
+    .ToList()
+    .ForEach(c => Console.WriteLine(c));
+Console.WriteLine(" \n END Display a list of the 10 most powerfull cars (in terms of hp) \n\n");
 
 
 // Display the number of models per Make that appeared after 1995
 // Makes should be displayed with a number of zero if there are no models after 2010.
-
-//cars.GroupBy(c => c.Make)
-//    .OrderBy(car => car.Key)
-//    //.Select(c => new { c.Key, NumberOfModels = c.Where(c => c.Year > 2010).Count() })
-//    .Select(c => new { c.Key, NumberOfModels = c.Count(c => c.Year > 2010)})
-//    .ToList()
-//    .ForEach(c => Console.WriteLine($"{c.Key} : {c.NumberOfModels}"));
-
+Console.WriteLine("Display the number of models per Make that appeared after 1995 and Zero \n ");
+cars.GroupBy(c => c.Make)
+    .OrderBy(car => car.Key)
+    //.Select(c => new { c.Key, NumberOfModels = c.Where(c => c.Year > 2010).Count() })
+    .Select(c => new { c.Key, NumberOfModels = c.Count(c => c.Year > 2010) })
+    .ToList()
+    .ForEach(c => Console.WriteLine($"{c.Key} : {c.NumberOfModels}"));
+Console.WriteLine("\n END Display the number of models per Make that appeared after 1995 and Zero \n\n ");
 
 // Display a list of makes that have at least two models with >= 400 hp
 
